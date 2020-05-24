@@ -1,0 +1,50 @@
+#Creating Deployment controller for nginx
+#Deployment controller support both equality and set base selecters
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    tier: backend
+    env: dev
+    app: nginx-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-app #Equality Base Selector operators (= == !=)
+  template:
+    metadata:
+      name: nginx-temp
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-cont
+        image: nginx
+        ports:
+        - name: nginx-port
+          containerPort: 80
+
+
+#Commands
+
+#kubectl create -f file.yaml
+
+#kubectl get pods
+#kubectl get pods -o wide
+#kubectl get pods -o yaml
+#kubectl get pods -l app=nginx-app
+#kubectl describe deploy nginx-rc
+#kubectl scale deploy nginx-deploy --replicas=5  (for scalling up)
+#kubectl scale deploy nginx-deploy --replicas=2  (for scalling down)
+
+#kubectl set image deploy nginx-deploy nginx-cont=nginx:1.9.1 --record
+
+#kubectl rollout status deployment/nginx-deploy
+#kubectl rollout history deployment/nginx-deploy
+#To Undo A deployment we use:
+#kubectl rollout undo deployment/nginx-deply
+
+#kubectl delete -f file.yaml

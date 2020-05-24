@@ -1,0 +1,44 @@
+#Creating Replication controller for nginx
+#Replication controller only support equality base selecters
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc
+  labels:
+    tier: backend
+    env: dev
+    app: nginx-app
+spec:
+  replicas: 3
+  selector:
+    app: nginx-app #Equality Base Selector  operators (= == !=)
+  template:
+    metadata:
+      name: nginx-temp
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-cont
+        image: nginx
+        ports:
+        - name: nginx-port
+          containerPort: 80
+
+#Commands
+
+#kubectl create -f file.yaml
+
+#kubectl get pods
+#kubectl get pods -o wide
+#kubectl get pods -o yaml
+#kubectl get pods -l app=nginx-app
+#kubectl describe rc nginx-rc
+
+#kubectl set image rc nginx-rc nginx-cont=nginx:1.9.1 --record
+
+#kubectl scale rc nginx-rc --replicas=5  (for scalling up)
+#kubectl scale rc nginx-rc --replicas=2  (for scalling down)
+
+#kubectl delete -f file.yaml

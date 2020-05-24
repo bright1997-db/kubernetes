@@ -1,0 +1,47 @@
+#Creating Daemonset controller for nginx
+#Daemonset controller support both equality and set base selecters
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-ds
+  labels:
+    tier: backend
+    env: dev
+    app: nginx-app
+spec:
+  selector:
+    matchLabels:
+      app: nginx-app #Equality Base Selector operators (= == !=)
+  template:
+    metadata:
+      name: nginx-temp
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-cont
+        image: nginx
+        ports:
+        - name: nginx-port
+          containerPort: 80
+
+
+#Commands
+
+#kubectl create -f file.yaml
+
+#kubectl get pods
+#kubectl get pods -o wide
+#kubectl get pods -o yaml
+#kubectl get pods -l app=nginx-app
+#kubectl describe ds nginx-rc
+
+#kubectl set image daemonset nginx-ds nginx-cont=nginx:1.9.1 --record
+
+#kubectl rollout status daemonset/nginx-deploy
+#kubectl rollout history daemonset/nginx-deploy
+#To Undo A Daemonset we use:
+#kubectl rollout undo daemonset/nginx-deply
+
+#kubectl delete ds nginx-ds
