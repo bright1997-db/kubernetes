@@ -54,3 +54,25 @@ spec:
 #Commands
 #kubectl get svc
 #kubectl describe svc nginx-svc
+
+
+#Commands
+
+#kubectl create -f file.yaml
+
+#kubectl get pods
+#kubectl get pods -o wide
+#kubectl get pods -o yaml
+#kubectl get pods -l app=nginx-app
+#kubectl describe deploy nginx-rc
+#kubectl scale deploy nginx-deploy --replicas=5  (for scalling up)
+#kubectl scale deploy nginx-deploy --replicas=2  (for scalling down)
+
+#kubectl set image deploy nginx-deploy nginx-cont=nginx:1.9.1 --record
+
+#kubectl rollout status deployment/nginx-deploy
+#kubectl rollout history deployment/nginx-deploy
+#To Undo A deployment we use:
+#kubectl rollout undo deployment/nginx-deply
+
+#kubectl delete -f file.yaml
