@@ -55,6 +55,10 @@ spec:
 #kubectl get svc
 #kubectl describe svc nginx-svc
 
+#When using in azure you have to attach azure container
+#registry to your kubernetes cluster using the following
+
+#az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acrName>
 
 #Commands
 
